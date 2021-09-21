@@ -1,6 +1,7 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import ToDoList from '../ToDoList';
+import './App.css'
 
 function App() {
   const title = "To Do List"
