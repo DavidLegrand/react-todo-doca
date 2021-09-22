@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import PropTypes from "prop-types";
 import { Form, FormGroup, FormControl, FormLabel, FormCheck, Button } from 'react-bootstrap'
 import TaskModel, { priorities } from "models/Task";
@@ -48,4 +48,4 @@ NewTaskForm.propTypes = {
   add: PropTypes.func.isRequired
 };
 
-export default NewTaskForm;
+export default memo(NewTaskForm);

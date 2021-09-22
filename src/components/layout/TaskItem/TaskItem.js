@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { ListGroupItem, Badge, Button } from "react-bootstrap";
 import TaskModel from "models/Task";
@@ -30,4 +30,4 @@ TaskItem.propTypes = {
   updateCompleted: PropTypes.func.isRequired,
 };
 
-export default TaskItem;
+export default memo(TaskItem);
