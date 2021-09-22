@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import TaskItem from "components/layout/TaskItem";
-import NewTaskForm from "components/layout/NewTaskForm";
+import NewTaskForm from "components/pages/NewTaskForm";
 import H1 from "components/shared/H1";
 import Placeholder from "components/shared/Placeholder";
 import { ListContext } from 'contexts/List'
@@ -33,9 +33,6 @@ const ToDoListView = ({ list, loading, user, setuser, updateCompleted, addTask, 
             <ListGroupItem className="d-flex justify-content-center">
               <Button className='me-2' variant='dark' onClick={() => updateCompleted(true)}>Tout terminer</Button>
               <Button className='ms-2' variant='dark' onClick={() => updateCompleted(false)}>Tout annuler</Button>
-            </ListGroupItem>
-            <ListGroupItem>
-              <NewTaskForm add={addTask} />
             </ListGroupItem>
           </>
       }

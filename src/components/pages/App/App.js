@@ -1,24 +1,30 @@
 import { ListProvider } from 'contexts/List';
 import { UserProvider } from 'contexts/User';
-import React, { useState, useEffect, useCallback, memo, useMemo } from 'react'
+import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import ToDoList from '../ToDoList';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from 'routes';
 import './App.css'
 
 
 function App() {
 
-  const title = "To Do List"
   return (
     <ListProvider>
       <UserProvider>
+
         <Container>
           <Row>
             <Col>
-              <ToDoList></ToDoList>
+
+              <Router>
+                <Routes />
+              </Router>
+
             </Col>
           </Row>
         </Container>
+
       </UserProvider>
     </ListProvider>
   );
