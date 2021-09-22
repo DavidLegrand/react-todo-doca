@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import TaskItem from "components/layout/TaskItem";
 import TaskModel from "models/Task";
 import NewTaskForm from "components/layout/NewTaskForm";
-
+import { ListContext } from "contexts/List";
+import { UserContext } from "contexts/User";
 import API, { arrToObj, objToArr } from 'api'
 
 // const initialList = [
@@ -16,7 +17,8 @@ import API, { arrToObj, objToArr } from 'api'
 
 const ToDoList = () => {
 
-  const [list, setlist] = useState([])
+  const [list, setlist] = useContext(ListContext)
+  const [user, setuser] = useContext(UserContext)
 
   useEffect(() => {
     const options = {
@@ -63,19 +65,28 @@ const ToDoList = () => {
   }
 
   const getNewId = () => {
-    return list.reduce((prev, curr) => prev.id > curr.id ? prev : curr).id + 1
+    return list.length === 0 ? 1 : list.reduce((prev, curr) => prev.id > curr.id ? prev : curr).id + 1
   }
 
   const addTask = (newTask) => {
-    setlist((oldlist) => [...oldlist, new TaskModel({ ...newTask, id: getNewId() })])
+    setlist((oldlist) => [...oldlist, new TaskModel({
+      ...newTask,
+      id: getNewId(),
+      createdBy: user.id,
+      assignedTo: user.id
+    })
+    ])
   }
 
   return <>
+    User : <input type="number" value={user.id} onChange={(e) => setuser({ id: +e.target.value })} />
     <ListGroup>
-      {list.map((task) => <TaskItem
-        task={task}
-        key={task.id}
-        updateCompleted={updateCompleted} />)}
+      {list
+        .filter((task) => task.assignedTo === user.id)
+        .map((task) => <TaskItem
+          task={task}
+          key={task.id}
+          updateCompleted={updateCompleted} />)}
       <ListGroupItem className="d-flex justify-content-center">
         <Button className='me-2' variant='dark' onClick={() => updateCompleted(true)}>Tout terminer</Button>
         <Button className='ms-2' variant='dark' onClick={() => updateCompleted(false)}>Tout annuler</Button>
