@@ -10,8 +10,17 @@ const Navgiation = () => {
   return <Navbar bg="dark" variant="dark" expand="lg">
     <Nav as="ul" className="me-auto">
       <Nav.Item as="li"><NavLink to="/" className="nav-link" exact>Accueil</NavLink></Nav.Item>
-      <Nav.Item as="li"><NavLink to="/tasks" className="nav-link" exact>Todolist</NavLink></Nav.Item>
-      <Nav.Item as="li"><NavLink to="/tasks/new" className="nav-link" exact>Nouvelle tâche</NavLink></Nav.Item>
+      {isLogged ?
+        <>
+          <Nav.Item as="li"><NavLink to="/tasks" className="nav-link" exact>Todolist</NavLink></Nav.Item>
+          <Nav.Item as="li"><NavLink to="/tasks/new" className="nav-link" exact>Nouvelle tâche</NavLink></Nav.Item>
+        </>
+        :
+        <>
+          <Nav.Item as="li"><NavLink to="/login" className="nav-link" exact>Login</NavLink></Nav.Item>
+        </>
+      }
+
     </Nav>
     <LogoutButton isLogged={isLogged} setIsLogged={setIsLogged} />
   </Navbar>
