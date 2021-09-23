@@ -8,7 +8,7 @@ import './App.css'
 import PageLayout from 'components/shared/PageLayout';
 
 function App() {
-
+  
   return (
     <GlobalProvider>
       <Router>

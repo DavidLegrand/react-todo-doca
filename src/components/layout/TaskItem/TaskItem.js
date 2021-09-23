@@ -4,7 +4,7 @@ import { ListGroupItem, Badge, Button } from "react-bootstrap";
 import TaskModel from "models/Task";
 import { NavLink } from 'react-router-dom'
 
-const TaskItem = ({ task, updateCompleted }) => {
+const TaskItem = ({ task }) => {
 
   return <ListGroupItem variant={task.getVariant()}>
     <h2 className='d-inline'>{task.title}</h2>
@@ -19,7 +19,7 @@ const TaskItem = ({ task, updateCompleted }) => {
     <p className='m-0'>Temps restant : {task.getRemaining()} jours</p>
 
     <NavLink className="btn btn-dark me-3" to={`/tasks/${task.id}`}>Détails</NavLink>
-    <Button variant={task.completed ? 'dark' : task.getVariant()} onClick={() => updateCompleted(!task.completed, task)}>
+    <Button variant={task.completed ? 'dark' : task.getVariant()} onClick={() => { }}>
       {task.completed ? 'Annuler' : 'Terminer'}
     </Button>
 
@@ -28,7 +28,7 @@ const TaskItem = ({ task, updateCompleted }) => {
 
 TaskItem.propTypes = {
   task: PropTypes.instanceOf(TaskModel).isRequired,
-  updateCompleted: PropTypes.func.isRequired,
+
 };
 
 export default memo(TaskItem);

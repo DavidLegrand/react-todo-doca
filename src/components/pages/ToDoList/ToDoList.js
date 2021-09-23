@@ -1,25 +1,21 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
 import PropTypes from "prop-types";
 import TaskModel from "models/Task";
-import { ListContext } from "contexts/List";
 import { UserContext } from "contexts/User";
 import useFetchList from "hooks/useFetchList";
 import ToDoListView from "components/layout/ToDoListView";
+import { connect } from "react-redux";
+import { fetchTasks } from 'store/actions'
 
-// const initialList = [
-//   new TaskModel({ id: 1, title: 'Finaliser les maquettes', completed: true, priority: "high" }),
-//   new TaskModel({ id: 2, title: 'Développer l\'interface', completed: false, priority: "high" }),
-//   new TaskModel({ id: 3, title: 'Completer l\'API', completed: false, priority: "medium" }),
-//   new TaskModel({ id: 4, title: 'Préparer la démo', completed: false, priority: "low" }),
-// ]
 
-const ToDoList = () => {
 
-  const [list, setlist, error, loading] = useContext(ListContext)
+const ToDoList = ({ list, error, loading, fetchTasks }) => {
+
   const [user] = useContext(UserContext)
   const [filteredList, setfilteredList] = useState(list)
   const [filter, setFilter] = useState('all')
 
+  useEffect(() => { fetchTasks() }, [])
 
   useEffect(() => setfilteredList(
     list?.filter((task) => task.assignedTo === user.id)
@@ -44,35 +40,33 @@ const ToDoList = () => {
   //   if (list.length) sendData()
   // }, [list])
 
-  const updateCompleted = useCallback((completed, task = null) => {
-    setlist((oldlist) => oldlist.map((t) => {
-      //t.id === task.id ? new TaskModel({ ...t, completed: completed }) : t)
-      if (task === null || t.id === task.id)
-        t.completed = completed
-      return t
-    })
-    )
-  }, [setlist])
+  // const updateCompleted = useCallback((completed, task = null) => {
+  //   setlist((oldlist) => oldlist.map((t) => {
+  //     //t.id === task.id ? new TaskModel({ ...t, completed: completed }) : t)
+  //     if (task === null || t.id === task.id)
+  //       t.completed = completed
+  //     return t
+  //   })
+  //   )
+  // }, [setlist])
 
-  const addTask = useCallback((newTask) => {
-    const getNewId = () => {
-      return list.length === 0 ? 1 : list.reduce((prev, curr) => prev.id > curr.id ? prev : curr).id + 1
-    }
-    setlist((oldlist) => [...oldlist, new TaskModel({
-      ...newTask,
-      id: getNewId(),
-      createdBy: user.id,
-      assignedTo: user.id
-    })
-    ])
-  }, [list, setlist, user.id])
+  // const addTask = useCallback((newTask) => {
+  //   const getNewId = () => {
+  //     return list.length === 0 ? 1 : list.reduce((prev, curr) => prev.id > curr.id ? prev : curr).id + 1
+  //   }
+  //   setlist((oldlist) => [...oldlist, new TaskModel({
+  //     ...newTask,
+  //     id: getNewId(),
+  //     createdBy: user.id,
+  //     assignedTo: user.id
+  //   })
+  //   ])
+  // }, [list, setlist, user.id])
 
   return <ToDoListView
     list={filteredList}
     error={error}
     loading={loading}
-    updateCompleted={updateCompleted}
-    addTask={addTask}
     filter={[filter, setFilter]}
   />
 
@@ -82,4 +76,11 @@ ToDoList.propTypes = {
   //
 };
 
-export default ToDoList;
+export default connect(
+  (state) => ({
+    list: state.list.data,
+    error: state.list.error,
+    loading: state.list.loading
+  }),
+  (dispatch) => { return { fetchTasks: () => dispatch(fetchTasks()) } }
+)(ToDoList);

@@ -7,7 +7,7 @@ import Placeholder from "components/shared/Placeholder";
 import TaskModel from "models/Task";
 import ToDoListFilter from "../ToDoListFilter";
 
-const ToDoListView = ({ list, loading, updateCompleted, addTask, filter }) => {
+const ToDoListView = ({ list, loading, filter }) => {
 
 
   return <>
@@ -27,10 +27,10 @@ const ToDoListView = ({ list, loading, updateCompleted, addTask, filter }) => {
             {list?.map((task) => <TaskItem
               task={task}
               key={task.id}
-              updateCompleted={updateCompleted} />)}
+            />)}
             <ListGroupItem className="d-flex justify-content-center">
-              <Button className='me-2' variant='dark' onClick={() => updateCompleted(true)}>Tout terminer</Button>
-              <Button className='ms-2' variant='dark' onClick={() => updateCompleted(false)}>Tout annuler</Button>
+              <Button className='me-2' variant='dark' onClick={() => { }}>Tout terminer</Button>
+              <Button className='ms-2' variant='dark' onClick={() => { }}>Tout annuler</Button>
             </ListGroupItem>
           </>
       }
@@ -43,8 +43,6 @@ ToDoListView.propTypes = {
   list: PropTypes.arrayOf(PropTypes.instanceOf(TaskModel)),
   user: PropTypes.object,
   setuser: PropTypes.func,
-  updateCompleted: PropTypes.func.isRequired,
-  addTask: PropTypes.func.isRequired,
 };
 
 export default ToDoListView;
