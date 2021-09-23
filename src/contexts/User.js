@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 
-const initialUser = { id: 1, firstName: 'David', lastName: 'Legrand' }
+const initialUser = { id: 1, login: 'david', firstName: 'David', lastName: 'Legrand' }
 const UserContext = createContext(initialUser)
 
 const UserProvider = ({ children }) => {

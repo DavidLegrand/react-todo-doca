@@ -14,8 +14,9 @@ const useFetch = (endpoint) => {
         if (!res.ok) throw new Error(res.statusText)
         else {
           const result = await res.json()
-          console.log(result)
-          setdata(result)
+          if (result)
+            setdata(result)
+          else throw new Error('404 : Ressource introuvable')
         }
       } catch (e) {
         seterror(e)

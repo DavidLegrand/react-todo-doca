@@ -15,14 +15,11 @@ import ToDoListView from "components/layout/ToDoListView";
 
 const ToDoList = () => {
 
-  const [list, setlist] = useContext(ListContext)
-  const [user, setuser] = useContext(UserContext)
+  const [list, setlist, error, loading] = useContext(ListContext)
+  const [user] = useContext(UserContext)
   const [filteredList, setfilteredList] = useState(list)
   const [filter, setFilter] = useState('all')
 
-  const { data, error, loading } = useFetchList('tasks.json')
-
-  useEffect(() => setlist(data?.map((t) => new TaskModel(t))), [data, setlist])
 
   useEffect(() => setfilteredList(
     list?.filter((task) => task.assignedTo === user.id)
@@ -74,8 +71,6 @@ const ToDoList = () => {
     list={filteredList}
     error={error}
     loading={loading}
-    user={user}
-    setuser={setuser}
     updateCompleted={updateCompleted}
     addTask={addTask}
     filter={[filter, setFilter]}

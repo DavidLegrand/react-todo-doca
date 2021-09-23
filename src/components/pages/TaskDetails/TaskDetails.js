@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import H1 from 'components/shared/H1'
-import { NavLink, useParams } from 'react-router-dom'
+import { Redirect, NavLink, useParams } from 'react-router-dom'
 import useFetch from 'hooks/useFetch'
 import { Badge, ListGroupItem, Table } from 'react-bootstrap'
 import Placeholder from 'components/shared/Placeholder';
@@ -13,11 +13,11 @@ const TaskDetails = () => {
   const [task, settask] = useState(null)
 
   useEffect(() => {
-    if (data)
-      settask(new TaskModel(data))
+    if (data) settask(new TaskModel(data))
   }, [data])
 
   return <>
+    {error && <Redirect to='/404' />}
     <H1 title={data?.title}>{data?.title}</H1>
     {
       loading ?

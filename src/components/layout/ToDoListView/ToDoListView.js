@@ -2,19 +2,17 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import TaskItem from "components/layout/TaskItem";
-import NewTaskForm from "components/pages/NewTaskForm";
 import H1 from "components/shared/H1";
 import Placeholder from "components/shared/Placeholder";
-import { ListContext } from 'contexts/List'
 import TaskModel from "models/Task";
 import ToDoListFilter from "../ToDoListFilter";
 
-const ToDoListView = ({ list, loading, user, setuser, updateCompleted, addTask, filter }) => {
+const ToDoListView = ({ list, loading, updateCompleted, addTask, filter }) => {
 
 
   return <>
     <H1 title="Ceci est une todolist">To Do List</H1>
-    User: <input type="number" value={user.id} onChange={(e) => setuser({ id: +e.target.value })} />
+
     <ListGroup>
       {
         loading ?

@@ -1,33 +1,23 @@
-import Navgiation from 'components/layout/Navgiation';
-import { ListProvider } from 'contexts/List';
-import { UserProvider } from 'contexts/User';
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import GlobalProvider from 'contexts'
+
+import Navgiation from 'components/shared/Navgiation';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from 'routes';
 import './App.css'
-
+import PageLayout from 'components/shared/PageLayout';
 
 function App() {
 
   return (
-    <ListProvider>
-      <UserProvider>
-        <Router>
-          <Navgiation />
-          <Container>
-            <Row>
-              <Col>
-
-                <Routes />
-
-              </Col>
-            </Row>
-          </Container>
-
-        </Router>
-      </UserProvider>
-    </ListProvider>
+    <GlobalProvider>
+      <Router>
+        <Navgiation />
+        <PageLayout>
+          <Routes />
+        </PageLayout>
+      </Router>
+    </GlobalProvider>
   );
 }
 
