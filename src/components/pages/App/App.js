@@ -1,3 +1,4 @@
+import Navgiation from 'components/layout/Navgiation';
 import { ListProvider } from 'contexts/List';
 import { UserProvider } from 'contexts/User';
 import React from 'react'
@@ -12,19 +13,19 @@ function App() {
   return (
     <ListProvider>
       <UserProvider>
+        <Router>
+          <Navgiation />
+          <Container>
+            <Row>
+              <Col>
 
-        <Container>
-          <Row>
-            <Col>
-
-              <Router>
                 <Routes />
-              </Router>
 
-            </Col>
-          </Row>
-        </Container>
+              </Col>
+            </Row>
+          </Container>
 
+        </Router>
       </UserProvider>
     </ListProvider>
   );

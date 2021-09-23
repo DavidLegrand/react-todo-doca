@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import API, { arrToObj, objToArr } from 'api'
 
-const useFetch = (endpoint) => {
-  const [data, setdata] = useState()
+
+const useFetchList = (endpoint) => {
+  const [data, setdata] = useState([])
   const [error, seterror] = useState(null)
   const [loading, setloading] = useState(false)
 
@@ -14,8 +15,7 @@ const useFetch = (endpoint) => {
         if (!res.ok) throw new Error(res.statusText)
         else {
           const result = await res.json()
-          console.log(result)
-          setdata(result)
+          setdata(objToArr(result).filter((item) => item !== null))
         }
       } catch (e) {
         seterror(e)
@@ -27,4 +27,4 @@ const useFetch = (endpoint) => {
   return { data, error, loading }
 }
 
-export default useFetch
+export default useFetchList

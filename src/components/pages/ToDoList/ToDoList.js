@@ -3,10 +3,8 @@ import PropTypes from "prop-types";
 import TaskModel from "models/Task";
 import { ListContext } from "contexts/List";
 import { UserContext } from "contexts/User";
-import useFetch from "hooks/useFetch";
+import useFetchList from "hooks/useFetchList";
 import ToDoListView from "components/layout/ToDoListView";
-import Placeholder from "components/shared/Placeholder";
-
 
 // const initialList = [
 //   new TaskModel({ id: 1, title: 'Finaliser les maquettes', completed: true, priority: "high" }),
@@ -22,7 +20,7 @@ const ToDoList = () => {
   const [filteredList, setfilteredList] = useState(list)
   const [filter, setFilter] = useState('all')
 
-  const { data, error, loading } = useFetch('tasks.json')
+  const { data, error, loading } = useFetchList('tasks.json')
 
   useEffect(() => setlist(data?.map((t) => new TaskModel(t))), [data, setlist])
 
